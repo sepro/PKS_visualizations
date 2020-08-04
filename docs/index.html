@@ -23,10 +23,55 @@
 		<div class="container">
 			<h1>Kingdom-wide analysis of the evolution of the plant type III polyketide synthase superfamily</h1>
 			
+			<h2>Figure 2.</h2>
 			<div id="cy" json="./data/fig2.json" cycss="./js/cytoscape.cycss"></div>
 			
 		</div>
 	</main>
+	<script src="./js/jquery-3.5.1.min.js"></script>
 	<script src="./js/cytoscape.min.js"></script>
+	<script>
+	$(function () { 
+		var url = $('#cy').attr("json"), cycss_url = $('#cy').attr("cycss");
+
+		var data = [];
+		var style = [];
+		
+		console.log(url, cycss_url);
+		
+		$.ajax({
+			  method: "GET",
+			  url: url,
+			  dataType: "json",
+			  async: false
+			}).done(function(get_data) {
+				console.log(get_data);
+				data = get_data;
+			});
+
+		$.ajax({
+			  method: "GET",
+			  url: cycss_url,
+			  dataType: "text",
+			  async: false
+			}).done(function(get_data) {
+				console.log(get_data);
+				style = get_data;
+			});
+
+		var cy = cytoscape({
+			container: document.getElementById('cy'),
+			style: style,
+			wheelSensitivity: 0.333,
+			layout:  { name: 'preset' },
+			elements: data['G']['elements'],
+			ready: function () {
+				console.log('Cytoscape ready...');
+			}
+		});
+		
+
+	});
+	</script>
 </body>
 </html>

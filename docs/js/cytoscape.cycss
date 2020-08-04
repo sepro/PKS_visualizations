@@ -1,0 +1,12 @@
+node {
+    text-valign: center;
+    color: black;
+    text-outline-width: 2;
+    text-outline-color: #EEE;
+}
+
+edge {
+    opacity: 0.7;
+    width: 1;
+
+}
