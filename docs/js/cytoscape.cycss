@@ -3,10 +3,34 @@ node {
     color: black;
     text-outline-width: 2;
     text-outline-color: #EEE;
+	
+	border-width:1px;
+    border-color:#EEEEEE;
+	
+    pie-size: 80%;
+    pie-1-background-color: #f8756b;
+    pie-1-background-size: data(nd_percentage);
+    pie-2-background-color: #00bd7d;
+    pie-2-background-size: data(R2X_percentage);
+    pie-3-background-color: #00b0f5;
+    pie-3-background-size: data(R4A_percentage);
+	pie-4-background-color: #e668f3;
+    pie-4-background-size: data(R4C_percentage);
+	pie-5-background-color: #dda300;
+    pie-5-background-size: data(Other_percentage);
+}
+
+node:selected {
+	border-width:3px;
+    border-color:#EEEEFF;
+}
+
+node.sum_color {
+	background-color: mapData(sum, 1, 23, white, black);
 }
 
 edge {
-    opacity: 0.7;
+    opacity: 0.3;
     width: 1;
 
 }
