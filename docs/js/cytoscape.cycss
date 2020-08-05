@@ -40,6 +40,6 @@ node.pks_pie {
 
 edge {
     opacity: 0.3;
-    width: 1;
+    width: mapData(weight, 0,1, 0.5, 3);
 
 }
