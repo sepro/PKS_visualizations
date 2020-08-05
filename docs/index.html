@@ -91,7 +91,7 @@
 		cy.nodes().addClass('cluster_color');
 		cy.nodes().forEach(function (n) {
 			var content = [
-			{value: "<span><strong>" + n.data('shared_name') + "</strong></span>"},
+			{value: "<span><strong>" + n.data('shared_name').split('/').join(' ') + "</strong></span>"},
             {value: ''},
 			{value: "<span><strong>Cluster</strong> " + n.data('cluster') + "</span>"},	
 			{value: "<span><strong>Degree</strong> " + n.data('degree') + "</span>"},			
