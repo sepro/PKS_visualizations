@@ -6,7 +6,22 @@ node {
 	
 	border-width:1px;
     border-color:#EEEEEE;
-	
+}
+
+node:selected {
+	border-width:3px;
+    border-color:#EEEEFF;
+}
+
+node.sum_color {
+	background-color: mapData(sum, 1, 23, white, black);
+}
+
+node.cluster_color {
+	background-color: data(cluster_color);
+}
+
+node.pks_pie {
     pie-size: 80%;
     pie-1-background-color: #f8756b;
     pie-1-background-size: data(nd_percentage);
@@ -18,15 +33,6 @@ node {
     pie-4-background-size: data(R4C_percentage);
 	pie-5-background-color: #dda300;
     pie-5-background-size: data(Other_percentage);
-}
-
-node:selected {
-	border-width:3px;
-    border-color:#EEEEFF;
-}
-
-node.sum_color {
-	background-color: mapData(sum, 1, 23, white, black);
 }
 
 edge {

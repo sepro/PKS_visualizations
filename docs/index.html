@@ -24,6 +24,12 @@
 			<h1>Kingdom-wide analysis of the evolution of the plant type III polyketide synthase superfamily</h1>
 			
 			<h2>Figure 2.</h2>
+			<label for="colorOptions">Color by</label>
+			<div id="colorOptions" class="cy-option-menu">
+			  <button class="button button-outline cy-node-color" attr="sum_color"># PKS Genes</button>
+			  <button class="button button-outline cy-node-color" attr="pks_pie">PKS Distribution</button>
+			  <button class="button button-outline cy-node-color" attr="cluster_color">Cluster</button>
+			</select>
 			<div id="cy" json="./data/fig2.json" cycss="./js/cytoscape.cycss"></div>
 			
 		</div>
@@ -70,7 +76,16 @@
 			}
 		});
 		
-
+		$('.cy-node-color').click(function (ev) {
+			ev.preventDefault();
+			$(this).closest('.cy-option-menu').find('.cy-node-color').each(function () {
+				cy.nodes().removeClass($(this).attr('attr'));
+			});
+			cy.nodes().addClass($(this).attr('attr'));
+			console.log('Clicked option...', $(this).attr('attr'))
+		});	
+		
+		cy.nodes().addClass('cluster_color');
 	});
 	</script>
 </body>
