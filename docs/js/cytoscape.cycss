@@ -6,6 +6,9 @@ node {
 	
 	border-width:1px;
     border-color:#EEEEEE;
+	
+	width: mapData(degree, 1, 120, 10, 30);
+	height: mapData(degree, 1, 120, 10, 30);
 }
 
 node:selected {

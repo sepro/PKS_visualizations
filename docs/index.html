@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="./css/normalize.css">
 	<link rel="stylesheet" href="./css/milligram.min.css">
 	<link rel="stylesheet" href="./css/navbar.css">
+	<link rel="stylesheet" href="./css/jquery.qtip.min.css">
 	<link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
@@ -35,7 +36,9 @@
 		</div>
 	</main>
 	<script src="./js/jquery-3.5.1.min.js"></script>
+	<script src="./js/jquery.qtip.min.js"></script>
 	<script src="./js/cytoscape.min.js"></script>
+	<script src="./js/cytoscape-qtip.js"></script>
 	<script>
 	$(function () { 
 		var url = $('#cy').attr("json"), cycss_url = $('#cy').attr("cycss");
@@ -71,7 +74,7 @@
 			wheelSensitivity: 0.333,
 			layout:  { name: 'preset' },
 			elements: data['G']['elements'],
-			ready: function () {
+			ready: function ( cy ) {
 				console.log('Cytoscape ready...');
 			}
 		});
@@ -86,6 +89,35 @@
 		});	
 		
 		cy.nodes().addClass('cluster_color');
+		cy.nodes().forEach(function (n) {
+			var content = [
+			{value: "<span><strong>" + n.data('shared_name') + "</strong></span>"},
+            {value: ''},
+			{value: "<span><strong>Cluster</strong> " + n.data('cluster') + "</span>"},	
+			{value: "<span><strong>Degree</strong> " + n.data('degree') + "</span>"},			
+			{value: "<span><strong># PKS</strong> " + n.data('sum') + "</span>"},
+			{value: "<span><strong>PKS types</strong></span>"},
+			{value: "<div><ul><li>R2X: " + n.data('R2X') + "</li><li>R4A: " + n.data('R4A')  +  "</li><li>R4C: " + n.data('R4C') +  "</li><li>Other: " + n.data('Other') +  "</li><li>n.d.: " + n.data('nd') + "</li></ul></div>"}];
+			
+			n.qtip({
+				content: content.map(function (item) {
+					return item.value;
+				}).join('<br />\n'),
+				position: {
+					my: 'bottom center',
+					at: 'top center'
+				},
+				style: {
+					classes: 'qtip-bootstrap',
+					tip: {
+						width: 16,
+						height: 8
+					}
+				}
+				});
+			
+		});
+		
 	});
 	</script>
 </body>
