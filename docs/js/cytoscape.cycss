@@ -17,7 +17,7 @@ node:selected {
 }
 
 node.sum_color {
-	background-color: mapData(sum, 1, 23, white, black);
+	background-color: data(pks_sum_color);
 }
 
 node.cluster_color {

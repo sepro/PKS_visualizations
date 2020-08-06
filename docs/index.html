@@ -91,18 +91,24 @@
 		cy.nodes().addClass('cluster_color');
 		cy.nodes().forEach(function (n) {
 			var content = [
-			{value: "<span><strong>" + n.data('shared_name').split('/').join(' ') + "</strong></span>"},
+			{value: "<span><strong>" + n.data('shared_name').split('/').join(' ') + "</strong></span><br />"},
             {value: ''},
-			{value: "<span><strong>Cluster</strong> " + n.data('cluster') + "</span>"},	
-			{value: "<span><strong>Degree</strong> " + n.data('degree') + "</span>"},			
-			{value: "<span><strong># PKS</strong> " + n.data('sum') + "</span>"},
-			{value: "<span><strong>PKS types</strong></span>"},
-			{value: "<div><ul><li>R2X: " + n.data('R2X') + "</li><li>R4A: " + n.data('R4A')  +  "</li><li>R4C: " + n.data('R4C') +  "</li><li>Other: " + n.data('Other') +  "</li><li>n.d.: " + n.data('nd') + "</li></ul></div>"}];
+			{value: "<span><strong>Cluster</strong> " + n.data('cluster') + "</span><br />"},	
+			{value: "<span><strong>Degree</strong> " + n.data('degree') + "</span><br />"},			
+			{value: "<span><strong># PKS</strong> " + n.data('sum') + "</span><br />"},
+			{value: "<span><strong>PKS types</strong></span><br />"},
+			{value: "<div><ul><br />"}]
+			
+			if (n.data('R2X') > 0) { content.push({'value': "<li>R2X: " + n.data('R2X') + "</li>"}) }
+			if (n.data('R4A') > 0) { content.push({'value': "<li>R4A: " + n.data('R4A') + "</li>"}) }
+			if (n.data('R4C') > 0) { content.push({'value': "<li>R4C: " + n.data('R4C') + "</li>"}) }
+			if (n.data('Other') > 0) { content.push({'value': "<li>Other: " + n.data('Other') + "</li>"}) }
+			if (n.data('nd') > 0) { content.push({'value': "<li>n.d.: " + n.data('nd') + "</li>"}) }
 			
 			n.qtip({
 				content: content.map(function (item) {
 					return item.value;
-				}).join('<br />\n'),
+				}).join('\n'),
 				position: {
 					my: 'bottom center',
 					at: 'top center'
