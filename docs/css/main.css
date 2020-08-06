@@ -1,4 +1,13 @@
 #cy {
-  min-height: 800px;
+  min-height: 600px;
   margin: 0px;
+}
+
+#image {
+  min-height: 600px;
+  margin: 0px;
+}
+
+.leaflet-control-attribution {
+	display: none;
 }

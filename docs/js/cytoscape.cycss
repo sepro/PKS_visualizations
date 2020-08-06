@@ -24,6 +24,10 @@ node.cluster_color {
 	background-color: data(cluster_color);
 }
 
+node.scaffold_length_color {
+	background-color: mapData(length_scaffold,0, 14201, white, black);
+}
+
 node.pks_pie {
     pie-size: 80%;
     pie-1-background-color: #f8756b;

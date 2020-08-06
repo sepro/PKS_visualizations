@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="./css/navbar.css">
 	<link rel="stylesheet" href="./css/jquery.qtip.min.css">
 	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./leaflet/leaflet.css" />
+	<link rel="stylesheet" href="./leaflet/leaflet.fullscreen.css" />
 </head>
 <body>
 	<main class='wrapper'>
@@ -24,107 +26,30 @@
 		<div class="container">
 			<h1>Kingdom-wide analysis of the evolution of the plant type III polyketide synthase superfamily</h1>
 			
-			<h2>Figure 2.</h2>
-			<label for="colorOptions">Color by</label>
-			<div id="colorOptions" class="cy-option-menu">
-			  <button class="button button-outline cy-node-color" attr="sum_color"># PKS Genes</button>
-			  <button class="button button-outline cy-node-color" attr="pks_pie">PKS Distribution</button>
-			  <button class="button button-outline cy-node-color" attr="cluster_color">Cluster</button>
-			</select>
-			<div id="cy" json="./data/fig2.json" cycss="./js/cytoscape.cycss"></div>
+			<p><strong>Interactive Figure 1.</strong>Network showing synteny between regions containing type III PKS genes. The network contains four 'R-4-C'-enriched syntenic clusters corresponding to CHS function (2, 4, 5, and 14) and four syntenic clusters with LAP5 and LAP6 orthologs (1, 3, 11, and 27). The syntenic clusters showed species-specific distribution (Supplementary Figure 5). Each vertex depicts information on the pPAP-classification of PKS within the genomic region, the number of PKS within the region (number of tandem duplicates) and the cluster membership. Clusters were detected by applying the community detection algorithms, fastgreedy, walktrap, leading eigenvector, and multilevel on the weighted network, followed by affinity propagation clustering. Vertex size reflects degree of the vertex (unweighted number of edges connecting to the vertex).<br />View image <a href="./interactive_figure_01.html">here</a></p>
 			
+			
+			<p><strong>Figure 3.</strong> (from publication)
+			<br />View image <a href="./figure_03.html">here</a></p>
+			
+			<p><strong>Figure S01.</strong> (from publication)
+			<br />View image <a href="./figure_S_01.html">here</a></p>			
+			
+			<p><strong>Figure S03.</strong> (from publication)
+			<br />View image <a href="./figure_S_03.html">here</a></p>		
+			
+			<p><strong>Figure S04.</strong> (from publication)
+			<br />View image <a href="./figure_S_04.html">here</a></p>		
+			
+			<p><strong>Figure S05.</strong> (from publication)
+			<br />View image <a href="./figure_S_05.html">here</a></p>	
 		</div>
 	</main>
+	<script src="./leaflet/leaflet.js"></script>
+	<script src="./leaflet/leaflet.fullscreen.min.js"></script>
 	<script src="./js/jquery-3.5.1.min.js"></script>
 	<script src="./js/jquery.qtip.min.js"></script>
 	<script src="./js/cytoscape.min.js"></script>
 	<script src="./js/cytoscape-qtip.js"></script>
-	<script>
-	$(function () { 
-		var url = $('#cy').attr("json"), cycss_url = $('#cy').attr("cycss");
-
-		var data = [];
-		var style = [];
-		
-		console.log(url, cycss_url);
-		
-		$.ajax({
-			  method: "GET",
-			  url: url,
-			  dataType: "json",
-			  async: false
-			}).done(function(get_data) {
-				console.log(get_data);
-				data = get_data;
-			});
-
-		$.ajax({
-			  method: "GET",
-			  url: cycss_url,
-			  dataType: "text",
-			  async: false
-			}).done(function(get_data) {
-				console.log(get_data);
-				style = get_data;
-			});
-
-		var cy = cytoscape({
-			container: document.getElementById('cy'),
-			style: style,
-			wheelSensitivity: 0.333,
-			layout:  { name: 'preset' },
-			elements: data['G']['elements'],
-			ready: function ( cy ) {
-				console.log('Cytoscape ready...');
-			}
-		});
-		
-		$('.cy-node-color').click(function (ev) {
-			ev.preventDefault();
-			$(this).closest('.cy-option-menu').find('.cy-node-color').each(function () {
-				cy.nodes().removeClass($(this).attr('attr'));
-			});
-			cy.nodes().addClass($(this).attr('attr'));
-			console.log('Clicked option...', $(this).attr('attr'))
-		});	
-		
-		cy.nodes().addClass('cluster_color');
-		cy.nodes().forEach(function (n) {
-			var content = [
-			{value: "<span><strong>" + n.data('shared_name').split('/').join(' ') + "</strong></span><br />"},
-            {value: ''},
-			{value: "<span><strong>Cluster</strong> " + n.data('cluster') + "</span><br />"},	
-			{value: "<span><strong>Degree</strong> " + n.data('degree') + "</span><br />"},			
-			{value: "<span><strong># PKS</strong> " + n.data('sum') + "</span><br />"},
-			{value: "<span><strong>PKS types</strong></span><br />"},
-			{value: "<div><ul><br />"}]
-			
-			if (n.data('R2X') > 0) { content.push({'value': "<li>R2X: " + n.data('R2X') + "</li>"}) }
-			if (n.data('R4A') > 0) { content.push({'value': "<li>R4A: " + n.data('R4A') + "</li>"}) }
-			if (n.data('R4C') > 0) { content.push({'value': "<li>R4C: " + n.data('R4C') + "</li>"}) }
-			if (n.data('Other') > 0) { content.push({'value': "<li>Other: " + n.data('Other') + "</li>"}) }
-			if (n.data('nd') > 0) { content.push({'value': "<li>n.d.: " + n.data('nd') + "</li>"}) }
-			
-			n.qtip({
-				content: content.map(function (item) {
-					return item.value;
-				}).join('\n'),
-				position: {
-					my: 'bottom center',
-					at: 'top center'
-				},
-				style: {
-					classes: 'qtip-bootstrap',
-					tip: {
-						width: 16,
-						height: 8
-					}
-				}
-				});
-			
-		});
-		
-	});
-	</script>
 </body>
 </html>
