@@ -34,6 +34,8 @@
 	</main>
 	<script src="./leaflet/leaflet.js"></script>
 	<script src="./leaflet/leaflet.fullscreen.min.js"></script>
+	<script src="./js/spin.min.js"></script>
+	<script src="./js/leaflet.spin.min.js"></script>
 	<script src="./js/jquery-3.5.1.min.js"></script>
 	<script src="./js/jquery.qtip.min.js"></script>
 	<script src="./js/cytoscape.min.js"></script>
@@ -50,7 +52,12 @@
 		var imageUrl = './img/fig_3_tree_red_annot.svg',
 			imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
 
-		L.imageOverlay(imageUrl, imageBounds).addTo(map);
+		map.spin(true);
+		figure = L.imageOverlay(imageUrl, imageBounds)
+		
+		figure.on('load', function() { map.spin(false) })
+		
+		figure.addTo(map)
 	</script>
 </body>
 </html>
